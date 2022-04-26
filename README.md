@@ -1,4 +1,5 @@
 基于Netty+Springboot+vue+websocket+elementui实现的网页版聊天，支持提供了单聊、群聊。
+
 chat-client
 * 是模拟多人聊天的客户端测试项目
 ```
