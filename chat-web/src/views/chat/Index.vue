@@ -470,12 +470,14 @@ export default {
 	text-align: start;
 }
 .left-record-content{
+	text-align: start;
 	background-color: #f2f2f2;
 	border-radius: 0px 5px 5px 5px;
 	padding: 10px;
 }
 
 .right-record-content{
+	text-align: start;
 	color: white;
 	background-color: #009dff;
 	border-radius: 5px 0px 5px 5px;

@@ -1,21 +1,16 @@
 package com.acezhhh.client.controller;
 
+import com.acezhhh.client.config.RandomTxtConfig;
 import com.acezhhh.client.netty.NettyClient;
-import com.acezhhh.client.util.RandomNameUtil;
 import com.acezhhh.common.enums.MessageTypeEnum;
 import com.acezhhh.common.vo.ChatVo;
 import com.acezhhh.common.vo.MessageVo;
 import com.acezhhh.common.vo.UserVo;
-import com.alibaba.fastjson.JSON;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,9 +27,12 @@ import java.util.concurrent.CountDownLatch;
 @RequestMapping(value = "/test")
 public class TestController {
 
+    @Autowired
+    private RandomTxtConfig randomTxtConfig;
+
     private List<NettyClient> nettyClientList = new ArrayList<>();
 
-    @GetMapping("test")
+    @GetMapping("register")
     public String test() throws InterruptedException {
         NettyClient nettyClient = new NettyClient();
         CountDownLatch countDownLatch = new CountDownLatch(1);
@@ -42,7 +40,7 @@ public class TestController {
         countDownLatch.await();
         registerUser(nettyClient);
         nettyClientList.add(nettyClient);
-        return "success";
+        return "register success";
     }
 
     @GetMapping("chat")
@@ -77,7 +75,7 @@ public class TestController {
         String head = "head" + (new Random().nextInt(24) + 1);
         UserVo userVo = UserVo.builder()
                 .id(UUID.randomUUID().toString())
-                .userName(RandomNameUtil.createRandomWord(6))
+                .userName(randomTxtConfig.getName())
                 .head(head)
                 .build();
         System.out.println(userVo.toString());
@@ -89,9 +87,8 @@ public class TestController {
     }
 
     private void sendMsg(NettyClient nettyClient) {
-        String content = RandomNameUtil.getRandomJianHan(new Random().nextInt(30));
         ChatVo chatVo = ChatVo.builder()
-                .content(content)
+                .content(randomTxtConfig.getSentence())
                 .targetChannelId("ALL")
                 .build();
         MessageVo messageVo = MessageVo.builder()
