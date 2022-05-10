@@ -22,7 +22,7 @@
         <div class="content">
           <div class="chat-list">
             <div style="margin-top:4px">
-							<div class="chat-person" v-for="(item, index) in userList" v-show="index < 7" :key="index"
+							<div class="chat-person" v-for="(item, index) in userList" :key="index"
 								:class="{
 									'chat-person-hover':index == hoverIndex,
 									'chat-person-active':item.id == currentUser.id
@@ -392,6 +392,25 @@ export default {
 	width: 50px;
 	height: 50px;
 }
+
+.chat-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.chat-list::-webkit-scrollbar-track {
+  background-color: #e4e7ed;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.chat-list::-webkit-scrollbar-thumb {
+  background-color: #c0c4cc;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
 .person-name{
 	width: 60%;
 	text-align: left;
